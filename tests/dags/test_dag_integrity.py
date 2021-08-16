@@ -21,6 +21,7 @@ def test_dag_integrity(dag_path):
 
     # For every DAG object, test for cycles
     for dag in dag_objects:
+        # dag_cycle_tester.check_cycle() on Airflow master branch (https://github.com/apache/airflow/pull/16617)
         dag_cycle_tester.test_cycle(dag)
 
 
