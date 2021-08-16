@@ -4,4 +4,6 @@ __pycache__/
 airflow.cfg
 airflow.db
 logs/
+unittests.cfg
+unittests.db
 webserver_config.py
