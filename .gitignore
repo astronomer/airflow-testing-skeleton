@@ -1,0 +1,7 @@
+.idea/
+.python-version
+__pycache__/
+airflow.cfg
+airflow.db
+logs/
+webserver_config.py

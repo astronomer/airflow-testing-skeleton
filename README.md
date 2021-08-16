@@ -1,0 +1,4 @@
+# Airflow testing skeleton
+
+Apache Airflow code can be difficult to test, but you don't need a full Airflow setup to validate your code. This
+project provides several examples for testing Airflow code locally.

@@ -1,0 +1,2 @@
+apache-airflow~=2.1
+pytest~=6.2.4
