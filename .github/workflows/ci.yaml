@@ -1,0 +1,36 @@
+name: CI
+
+on: push
+
+jobs:
+  black:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - run: |
+          python -m pip install --upgrade pip
+          pip install black~=21.7b0
+      - run: |
+          black --check .
+
+  #  https://github.com/py-actions/flake8
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+    - name: flake8 Lint
+      uses: py-actions/flake8@v1
+      with:
+        max-line-length: 120
+
+#
+#  tests:
+#    needs: [black, flake8]
