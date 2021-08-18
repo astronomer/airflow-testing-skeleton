@@ -7,8 +7,10 @@ from airflow.operators.sql import SQLValueCheckOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from pytest_docker_tools import fetch, container
 
+# Pytest fixture for Postgres Docker image
 postgres_image = fetch(repository="postgres:13-alpine")
 
+# Pytest fixture for Postgres Docker container
 postgres = container(
     image="{postgres_image.id}",
     environment={"POSTGRES_USER": "airflow", "POSTGRES_PASSWORD": "airflow"},
@@ -16,6 +18,7 @@ postgres = container(
 )
 
 
+# Mock decorators avoid using with ... context manager, which avoids indenting code
 @mock.patch("airflow.providers.postgres.hooks.postgres.PostgresHook.get_connection")
 @mock.patch("airflow.hooks.base.BaseHook.get_connection")
 def test_postgres_operator_with_docker(base_hook_mock, pg_hook_mock, postgres):
@@ -31,6 +34,7 @@ def test_postgres_operator_with_docker(base_hook_mock, pg_hook_mock, postgres):
     pg_hook_mock.return_value = postgres_connection
     base_hook_mock.return_value = postgres_connection
 
+    # Create table and insert rows
     create_data_and_count = PostgresOperator(
         task_id="create_data_and_count",
         postgres_conn_id="foobar",
