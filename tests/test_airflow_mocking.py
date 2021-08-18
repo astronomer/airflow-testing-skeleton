@@ -1,3 +1,5 @@
+"""Examples for testing Airflow using mocking."""
+
 import datetime
 from pathlib import PosixPath
 from typing import Dict
