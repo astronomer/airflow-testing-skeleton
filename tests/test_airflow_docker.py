@@ -58,6 +58,6 @@ def test_postgres_operator_with_docker(base_hook_mock, pg_hook_mock, postgres):
     # Since you cannot fetch any data with the PostgresOperator,
     # use the SQLValueCheckOperator to verify the number of rows
     count_rows = SQLValueCheckOperator(
-        task_id="count_rows", conn_id="foobar", sql="SELECT COUNT(*) FROM pet;", pass_value=4
+        task_id="count_rows", conn_id="foobar", sql="SELECT COUNT(*) FROM pet;", pass_value=5
     )
     count_rows.execute(context={})
