@@ -17,4 +17,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install black~=21.7b0
       - run: |
-          black --check --verbose .
+          black --check .
