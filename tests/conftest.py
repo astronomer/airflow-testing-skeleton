@@ -1,4 +1,5 @@
 import os
+import shutil
 
 import pytest
 
@@ -15,3 +16,9 @@ def reset_db():
 
     db.resetdb()
     yield
+
+    # Cleanup temp files generated during tests
+    os.remove(os.path.join(os.environ["AIRFLOW_HOME"], "unittests.cfg"))
+    os.remove(os.path.join(os.environ["AIRFLOW_HOME"], "unittests.db"))
+    os.remove(os.path.join(os.environ["AIRFLOW_HOME"], "webserver_config.py"))
+    shutil.rmtree(os.path.join(os.environ["AIRFLOW_HOME"], "logs"))
