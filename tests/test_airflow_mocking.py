@@ -31,6 +31,23 @@ def test_bash_operator_with_variable(tmp_path: PosixPath):
             assert output_file.read_text() == f"[{', '.join(employees)}]\n"
 
 
+@mock.patch.dict("os.environ", AIRFLOW_VAR_EMPLOYEES='["Alice", "Bob", "Charlie"]')
+def test_bash_operator_with_variable_with_mock_decorator(tmp_path: PosixPath):
+    """Mocking Variable.get() with a decorator & environment variable, to demonstrate different options."""
+    with DAG(dag_id="test_dag", start_date=datetime.datetime(2021, 1, 1), schedule_interval="@daily") as dag:
+        output_file = tmp_path / "output.txt"
+        test = BashOperator(task_id="test", bash_command="echo {{ var.json.employees }} > " + str(output_file))
+        dag.clear()
+        test.run(
+            start_date=dag.start_date,
+            end_date=dag.start_date,
+            ignore_first_depends_on_past=True,
+            ignore_ti_state=True,
+        )
+
+        assert output_file.read_text() == "[Alice, Bob, Charlie]\n"
+
+
 class FetchConnHostnameOperator(BaseOperator):
     """Sample operator to demonstrate testing & mocking a connection."""
 
