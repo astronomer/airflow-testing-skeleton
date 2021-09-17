@@ -13,5 +13,5 @@ def test_dagbag():
 
     # Additional project-specific checks can be added here, e.g. to enforce each DAG has a tag
     for dag_id, dag in dag_bag.dags.items():
-        # assert dag.tags
-        assert dag.tags, f"{dag_id} in {dag.full_filepath} has no tags"  # assert with custom message
+        error_msg = f"{dag_id} in {dag.full_filepath} has no tags"
+        assert dag.tags, error_msg
